@@ -64,7 +64,7 @@ Community formulas (translated, credited in the note): `community/sources/refere
 
 ## Aliases and alternative forms
 
-Each form an assistant may reach for, and what this controller does with it: works, refused at load (nothing runs), stops mid-run, or silently wrong (it runs and computes something else: also in hazards.md). "not measured" means no bench test has tried it here: do not assume it works.
+Each form an assistant may reach for, and what this controller does with it: works, refused at load (nothing runs), or silently wrong (it runs and computes something else: also in hazards.md). "not measured" means no bench test has tried it here: do not assume it works.
 
 | | form | on this controller | bench test |
 |---|---|---|---|
