@@ -85,6 +85,8 @@ END1
 *(vendor macro: slib-m.nc O10300 (sensor wait); not a bench test)*
 
 - The vendor's M50 sets output 1 with #1552 = 1 and M51 clears it with #1552 = 0. *(vendor macro: slib-m.nc O10050 (M50), O10051 (M51); not a bench test)*
+- G84 (tapping) is the vendor subprogram O9084: it repeats K times a rapid to the hole (G91 G00 X Y: the X and Y words may be INCREMENTAL, as in the vendor's G81), a rapid to R, a G01 to the bottom and a G01 back to R (the servo spindle turns forward, then reverses), then a rapid to the retract level. The spindle must be a step/direction servo on an axis (Spindle interface type, Spindle mapping axis). *(vendor macro: slib-g.nc O9084 (G84); not a bench test)*
+- The vendor's M180 switches the spindle to servo mode (#579 = 1, and drives the output set in #1295-#1297) and M181 switches it back to the analog spindle (#579 = 0, the output inverted). G84 tapping runs between them. *(vendor macro: slib-m.nc O10180 (M180), O10181 (M181); not a bench test)*
 - The vendor's sensor wait reads the input indirectly: WHILE [#[1520+#4-1] != #6] DO1, a G04 P10 poll, END1 (the input number in #4, the level in #6). *(vendor macro: slib-m.nc O10300 (sensor wait); not a bench test)*
 
 ## Examples

@@ -51,11 +51,18 @@ How to read them: a key, a menu entry or an M-code runs a macro file; a macro ca
 - `macros/pause.nc`: The pause hook: M119 (slib-m.nc O10119). In the release: `V1_M350_20260410/install/pause.nc`.
 - `macros/probe.nc`: Tool setting: M98 P502 (slib-g.nc O502). In the release: `V1_M350_20260410/install/probe.nc`.
 - `macros/slib-g.nc`: The G-code library: the subprograms behind G-codes (O90nn runs Gnn) and the shared routines (homing, tool setting, dual Y, the tool change); see the list below. In the release: `V1_M350_20260410/install/slib-g.nc`.
+  - quoted (firmware 2026-04-10-00), cited by `ex-tap-g84-vendor`: `O9084`
+  - quoted (firmware 2026-04-10-00), cited by `ex-tap-g84-vendor`: `G91G00X#0Y#1A#3B#4C#5`
+  - quoted (firmware 2026-04-10-00), cited by `ex-tap-g84-vendor`: `G90G01Z#11`
 - `macros/slib-m.nc`: The M-code library: O<10000 + n> runs M<n>; see the list below. In the release: `V1_M350_20260410/install/slib-m.nc`.
   - quoted (firmware 2026-04-10-00), cited by `ex-io-out-vendor`: `O10050`
   - quoted (firmware 2026-04-10-00), cited by `ex-io-out-vendor`: `#1552=1`
   - quoted (firmware 2026-04-10-00), cited by `ex-io-out-vendor`: `O10051`
   - quoted (firmware 2026-04-10-00), cited by `ex-io-out-vendor`: `#1552=0`
+  - quoted (firmware 2026-04-10-00), cited by `ex-tap-m180-vendor`: `O10180`
+  - quoted (firmware 2026-04-10-00), cited by `ex-tap-m180-vendor`: `#579 = 1`
+  - quoted (firmware 2026-04-10-00), cited by `ex-tap-m180-vendor`: `O10181`
+  - quoted (firmware 2026-04-10-00), cited by `ex-tap-m180-vendor`: `#579 = 0`
   - quoted (firmware 2026-04-10-00), cited by `ex-io-wait-vendor`: `O10300`
   - quoted (firmware 2026-04-10-00), cited by `ex-io-wait-vendor`: `WHILE [#[1520+#4-1] != #6] DO1`
   - quoted (firmware 2026-04-10-00), cited by `ex-hw-semicolon`: `IF #1301==0 GOTO4;`
