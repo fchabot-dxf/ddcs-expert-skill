@@ -75,32 +75,32 @@ Each form an assistant may reach for, and what this controller does with it: wor
 | Comparison | <> (not equal) | not measured |  |
 | Comparison | < > <= >= | not measured |  |
 | Comparison | LT GT LE GE (the words) | **works** | V10_operators.nc, Modbus injection test |
-| Logic | AND / OR / XOR | not measured |  |
-| Logic | && / \|\| | not measured |  |
-| Logic | NOT[x] | not measured |  |
-| Logic | !x (logical not) | not measured |  |
+| Logic | AND / OR / XOR | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | && / \|\| | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | NOT[x] | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | !x (logical not) | **silently wrong** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | MOD[a, b] | **refused at load** | photographed pendant errors |
 | Math | a MOD b (as an operator) | not measured |  |
-| Math | % (remainder) | not measured |  |
+| Math | % (remainder) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | ^ (power) | **refused at load** | photographed pendant errors |
-| Math | POW[a, b] | not measured |  |
-| Math | ** (power) | not measured |  |
+| Math | POW[a, b] | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | ** (power) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | SQRT[x] | **works** | Modbus injection test (#915 readback), a bench script re-run 20/20 |
-| Math | SQR[x] | not measured |  |
-| Math | TAN[x] | not measured |  |
-| Math | ATAN[x] (one argument) | not measured |  |
+| Math | SQR[x] | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | TAN[x] | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | ATAN[x] (one argument) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | ATAN[y, x] | **works** | V13_trig.nc, V13f_atan_comma.nc |
 | Math | ATAN[y]/[x] | **refused at load** | V13_trig.nc, V13f_atan_comma.nc |
 | Words | G00 for G0 | not measured |  |
-| Words | G4 for G04 | not measured |  |
+| Words | G4 for G04 | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | M03 for M3 | not measured |  |
 | Words | lowercase words (g0 x10) | not measured |  |
 | Words | a space inside a word (G 0, X 10) | not measured |  |
-| Words | decimal forms (.5, 5., 5.0) | not measured |  |
-| Words | leading zeros (X005) | not measured |  |
-| Words | a leading + (X+5, +.5) | not measured |  |
-| Words | an exponent (1e2) | not measured |  |
-| Words | a decimal comma (0,5) | not measured |  |
+| Words | decimal forms (.5, 5., 5.0) | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | leading zeros (X005) | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | a leading + (X+5, +.5) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | an exponent (1e2) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | a decimal comma (0,5) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | H1 for H01 | **silently wrong** | V18 bench session, V18f, V18g |
 | Words | G04 P3.0 (a decimal dwell) | **silently wrong** | DWELL_units.nc |
 | Jumps | GOTO 5 (a space before the label) | **works** | V11_gotospace.nc |
@@ -112,7 +112,7 @@ Each form an assistant may reach for, and what this controller does with it: wor
 | Jumps | an indented N label | **refused at load** | t2070 (controlled A/B) |
 | Comments | ; comment | not measured |  |
 | Comments | ( a ( b ) c ) (a nested comment) | **refused at load** | MGETDATA_TEST.nc |
-| Comments | / (block delete) | not measured |  |
+| Comments | / (block delete) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 
 ## Measured on this controller
 
@@ -132,6 +132,9 @@ Each form an assistant may reach for, and what this controller does with it: wor
 - On a move that mixes a linear and a rotary axis, F is deg/min on the rotary and the linear axis rides along to arrive with it: G91 G1 X10 B90 F100 took about 54 s, B at 98.6 deg/min and X at 10.9 mm/min. The rotary rapid measured about 1000 deg/min here (G0 B360, a steady 16.6 deg/s), and a combined G0 X B rapid is paced by the rotary rapid too. *(V28_rotary_feed.nc (work X and B polled, 226 samples))*
 - Each of these rejects the whole file at analysis, so nothing runs: a malformed variable (#90 = #91k8: syntax error!), trailing junk after an expression (#90 = [1 + 2 k 8]: syntax error!), an unknown value on a word (G04 Pwidht: Unrecognized characters, then syntax error!). The message names the line (L<n>[text]); a keyboard Reset clears the ERROR. *(V17a_badvar.nc, V17b_trailing.nc, V17c_badword.nc (System Log captured))*
 - An unclosed [ rejects the whole file at analysis (nothing ran), and the error names the NEXT non-blank line, not the one holding the [: #90 = [1 + 2 on line 26, with line 27 blank, was reported as L28, the comment after it. Look one statement back from the reported line. *(V17d_unclosed.nc (captured))*
+- These forms are a syntax error (1 run each, the error photographed): SQR[16], ATAN[1] with one argument, POW[2, 3], 2 ** 3, 7 % 3, NOT[0], 1 && 1, 1 || 0, 1 AND 1, 1 OR 0, 1 XOR 0, a leading + on a number (+5, +.5), an exponent (1e2, 1E3), a decimal comma (0,5) and a / block delete line (syntax error!:L21[/#350 = 1]). With Pr76 (Macro scan switch) open, the default, a syntax error rejects the whole file before line 1; measured with Pr76 closed, where the same forms stop the run mid-way at that line. *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
+- ⚠ !0 is not a logical NOT: #v = !0 ran and gave 0, with no error (1 run). *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
+- These forms work, each read back with the value meant (1 run each): TAN[45] (= 1, degrees); the decimal forms 5, 5., 5.0, 0.5, .5, -.5 and -5; leading zeros (005 = 5); G4 P1 and G04 P1; a space after the # (# 3xx = 5). *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
 
 ## Writing by hand: forms the controller's own macros use
 

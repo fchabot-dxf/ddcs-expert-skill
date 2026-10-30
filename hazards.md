@@ -21,6 +21,7 @@
 - ⛔ On the Expert the numpad is a jog pad: 8 / 2 / 6 / 4 / 9 / 1 move Y+ / Y- / X+ / X- / Z+ / Z-, and 0 / . move the 5th axis - / +. A stray numpad digit from a keyboard or a script moves an axis. *(USB HID dongle key sweep, jogs read on the DRO (DONGLE-TESTS.md))*
 - Where a Start lands depends on the page: a Start sent while the screen shows the System Log is ignored, and a Start on the Program page runs the file under the cursor (it started a BMP screenshot file, which went to ERROR). Send Start from the Monitor page, and look at the screen first. *(V30 session (keyboard Starts, the System Log and captures))*
 - ⛔ uservar is not a way into a RUNNING program on the Expert: a PC write into uservar mid-loop (#150 = 88) never reached the macro, which kept the old value. Give a running program nothing through uservar. *(A9-a)*
+- ⛔ ! is not NOT: #v = !0 gave 0 with no error, and the program went on with that value. *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
 
 ## Not measured, but a machine-safety rule
 
