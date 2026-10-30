@@ -73,14 +73,14 @@ Each form you might reach for, and what this controller does with it: ✅ works,
 | Comparison | != (not equal) | ✅ **works** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Comparison | NE (not equal, the word) | ✅ **works** | V10_operators.nc, Modbus injection test |
 | Comparison | <> (not equal) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
-| Comparison | < > <= >= | ❔ not measured |  |
+| Comparison | < > <= >= | ✅ **works** | the 2026-10-30 session on the machine, §4c (ALIAS_MORE) |
 | Comparison | LT GT LE GE (the words) | ✅ **works** | V10_operators.nc, Modbus injection test |
 | Logic | AND / OR / XOR | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Logic | && / \|\| | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Logic | NOT[x] | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Logic | !x (logical not) | ⚠️ **silently wrong** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | MOD[a, b] | ⛔ **refused at load** | photographed pendant errors |
-| Math | a MOD b (as an operator) | ❔ not measured |  |
+| Math | a MOD b (as an operator) | ⛔ **refused at load** | the 2026-10-30 session on the machine, §4c (ALIAS_MORE) |
 | Math | % (remainder) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | ^ (power) | ⛔ **refused at load** | photographed pendant errors |
 | Math | POW[a, b] | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
@@ -91,11 +91,11 @@ Each form you might reach for, and what this controller does with it: ✅ works,
 | Math | ATAN[x] (one argument) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | ATAN[y, x] | ✅ **works** | V13_trig.nc, V13f_atan_comma.nc |
 | Math | ATAN[y]/[x] | ⛔ **refused at load** | V13_trig.nc, V13f_atan_comma.nc |
-| Words | G00 for G0 | ❔ not measured |  |
+| Words | G00 for G0 | ✅ **works** | the 2026-10-30 session on the machine, §4c (ALIAS_MORE) |
 | Words | G4 for G04 | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | M03 for M3 | ❔ not measured |  |
-| Words | lowercase words (g0 x10) | ❔ not measured |  |
-| Words | a space inside a word (G 0, X 10) | ❔ not measured |  |
+| Words | lowercase words (g0 x10) | ✅ **works** | the 2026-10-30 session on the machine, §4c (ALIAS_MORE) |
+| Words | a space inside a word (G 0, X 10) | ✅ **works** | the 2026-10-30 session on the machine, §4c (ALIAS_MORE) |
 | Words | a space after # (# 100 = 5) | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | decimal forms (.5, 5., 5.0) | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | leading zeros (X005) | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
@@ -108,10 +108,10 @@ Each form you might reach for, and what this controller does with it: ✅ works,
 | Jumps | GO TO (two words) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Jumps | a leading zero in a label (N010, GOTO010) | ✅ **works** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Jumps | M099 for M99 | ⛔ **refused at load** | the 2026-10-30 session on the machine, §4b (FLOW_M099, O_IN_FLOW) |
-| Jumps | IF #a <= b GOTOn (spaces between the parts) | ❔ not measured |  |
+| Jumps | IF #a <= b GOTOn (spaces between the parts) | ✅ **works** | the 2026-10-30 session on the machine, §4c (ALIAS_MORE) |
 | Jumps | IF … THEN … (inline) | ⛔ **refused at load** | t2070 |
 | Jumps | an indented N label | ⛔ **refused at load** | t2070 (controlled A/B) |
-| Comments | ; comment | ❔ not measured |  |
+| Comments | ; comment | ✅ **works** | the 2026-10-30 session on the machine, §4c (ALIAS_MORE) |
 | Comments | ( a ( b ) c ) (a nested comment) | ⛔ **refused at load** | MGETDATA_TEST.nc |
 | Comments | / (block delete) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 
@@ -139,11 +139,14 @@ Each form you might reach for, and what this controller does with it: ✅ works,
 - Comparisons in IF #v <op> 5 GOTOn (1 run each): == and != work, as do the words EQ NE GT LT GE LE (each took the branch it should); <> is refused at load. *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
 - GO TO601 (a space inside the word) is refused at load. A leading zero in a label matches either way: GOTO604 reached N0604 and GOTO0607 reached N607 (1 run each). *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
 - ⚠ Values are float32: IF [0.3 - 0.2] == 0.1 is FALSE, with no error (1/3 reads 0.33333334). Compare rounded values instead: IF ROUND[[0.3 - 0.2] * 1000] == 100 is true (1 run each). *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
-- In-file subprograms work when they sit AFTER M30: M98 P<n> found O<n> and ran it; M98 P<n> L3 ran it 3 times; calls nested 4 deep returned correctly (1 run each, with a control run between). *(the 2026-10-30 session on the machine, §4b (SUB_CONTROL, SUB_AFTER_M30, L_REPEAT, NEST))*
-- A file containing M099, or a bare O line that the main flow reaches, is SILENTLY refused: Start does nothing, the screen stays READY, no error is shown, not one line runs and the run counter does not move (3 of 3 each, alternated with a control file that ran). M099 is not an M99 alias here. Put every O block after M30. *(the 2026-10-30 session on the machine, §4b (FLOW_M099, O_IN_FLOW))*
+- In-file subprograms work AFTER M30 (M98 P<n> found O<n> and ran it) and also BEFORE M30 when the main flow jumps over them with a GOTO; M98 P<n> L3 ran it 3 times; calls nested 4, 5 and 8 deep all went in and came back out (1 run each, with a control run between). *(the 2026-10-30 session on the machine, §4b (SUB_CONTROL, SUB_AFTER_M30, L_REPEAT, NEST))*
+- A file holding ANY O block that has no M99 is SILENTLY refused: Start does nothing, the screen stays READY, no error is shown, not one line runs and the run counter does not move. Measured with a sub ending in M099, a bare O line in the main flow, an O9119 after M30 that is never called, and an O0001 program header as the first line (2-3 runs each, alternated with a control file that ran). M099 is not an M99 alias here, and the Fanuc O0001 header is not allowed. End every O block with M99. *(the 2026-10-30 session on the machine, §4b (FLOW_M099, O_IN_FLOW))*
 - A file's own O10002 is never called: M98 P10002 ran the vendor's O10002 from slib-m.nc instead, with no error (1 run). The vendor's numbers (O500-O503, O9028-O9084, O9199, O10000-O10307, O20000) win over the file's own. *(the 2026-10-30 session on the machine, §4b (SHADOW))*
 - M98 P to an O number defined nowhere runs with no error and calls nothing; M98 P39112 did the same (1 run each). *(the 2026-10-30 session on the machine, §4b (P_COMBINED))*
-- M98 argument letters land in these locals, one letter per call: I #7, J #8, K #9, R #10, H #12, Q #14, D #15, F #16, S #17 (E ran, but its local was not seen). A local the call did not pass holds garbage (#2 read -80.84), and locals HOLD OVER between calls (K's #9 was still there in the next call that passed only Q). An M98 line carrying all ten letters D to S was refused at load, while each letter alone worked; which limit it hits is not measured. *(the 2026-10-30 session on the machine, §4b (DEC_ARGS, ARG_LETTERS))*
+- M98 P<n> L0 runs the subprogram ONCE, not zero times (1 run). M98 P<n> L3 runs it 3 times. *(the 2026-10-30 session on the machine, §4b-§4d (FINDINGS b51ec1443))*
+- A bare M99 in the main flow, with no call active, is refused: the pendant shows "The subroutine caller block was not found" (red). M99 P<n> (return to a line) is refused at load too (1 run each). *(the 2026-10-30 session on the machine, §4b-§4d (FINDINGS b51ec1443))*
+- M98 argument letters land in these locals, one letter per call: I #7, J #8, K #9, R #10, H #12, Q #14, D #15, F #16, S #17 (E is accepted and dropped: it lands in no local). A local the call did not pass holds garbage (#2 read -80.84), and locals HOLD OVER between calls (K's #9 was still there in the next call that passed only Q). An M98 line carrying D E F H I together was refused at load, while J K Q R S together ran, and each letter alone ran; which combination rule it hits is not measured. *(the 2026-10-30 session on the machine, §4b (DEC_ARGS, ARG_LETTERS))*
+- These forms work (1 run each): the comparison symbols < > <= >= in IF #v <op> 5 GOTOn; a modal line G00, lowercase g0, or G 0 (a space inside the word), each with no axis word and followed by a #-write that landed; the spaced form IF #a <= b GOTOn (IF #343 <= 5 GOTO6) and the packed IF#343<=5GOTO625; a ; comment line. 7 MOD 3 is refused at load: there is no MOD in any form. *(the 2026-10-30 session on the machine, §4c (ALIAS_MORE))*
 
 ## Writing by hand: forms the controller's own macros use
 

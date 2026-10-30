@@ -4,7 +4,7 @@
 
 This folder is yours, and git ignores everything in it but this file: this repository never ships the vendor's files (they are the vendor's, referenced here, not re-hosted). Fill it with your own DDCS Expert M350's files and they are read FIRST; with it empty, the lines quoted below are used. Either way they are **not bench tests**: they show what the vendor's code does, not that a user program behaves the same, and where they disagree with this pack's measured files, **the measured files win**.
 
-This pack's bench ran firmware 2025-06-19-00 (most rows; a few later rows on the controller's then-current firmware); the lines quoted below are from firmware 2026-04-10-00. Yours may be newer: your own copy is what your controller runs.
+This pack's bench ran firmware 2025-06-19-00 for the rows before 2026-10-30; 2026-04-10-00 for the 2026-10-30 session; the lines quoted below are from firmware 2026-04-10-00. Yours may be newer: your own copy is what your controller runs.
 
 ## How to fill it
 

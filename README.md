@@ -5,7 +5,7 @@
 The Rulebook for writing G-code and macros for the **DDCS Expert M350**: the rules in plain words, the
 syntax that runs on it, the hazards, and the bench evidence behind each measured rule.
 
-Measured on: a working DDCS Expert M350 mill, firmware 2025-06-19-00 (most rows; a few later rows on the controller's then-current firmware).
+Measured on: a working DDCS Expert M350 mill, firmware 2025-06-19-00 for the rows before 2026-10-30; 2026-04-10-00 for the 2026-10-30 session.
 
 ## How to load it
 

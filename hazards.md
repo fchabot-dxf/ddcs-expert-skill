@@ -24,10 +24,13 @@
 - ⛔ uservar is not a way into a RUNNING program on the Expert: a PC write into uservar mid-loop (#150 = 88) never reached the macro, which kept the old value. Give a running program nothing through uservar. *(A9-a)*
 - ⛔ ! is not NOT: #v = !0 gave 0 with no error, and the program went on with that value. *(bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
 - ⛔ Decimal equality fails silently: IF [0.3 - 0.2] == 0.1 is false (float32). Compare ROUND[[a] * 1000] == ROUND[[b] * 1000]. *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
-- ⛔ M099, or an O line the program flow reaches, makes the WHOLE file silently do nothing: READY, no error. Write M99, and put every O block after M30. *(the 2026-10-30 session on the machine, §4b (FLOW_M099, O_IN_FLOW))*
+- ⛔ ANY O block without an M99 (M099, a bare O line, an O0001 header) makes the WHOLE file silently do nothing: READY, no error. End every O block with M99, and drop the O0001 header. *(the 2026-10-30 session on the machine, §4b (FLOW_M099, O_IN_FLOW))*
 - ⛔ An O number the vendor library also uses (O10000+, O9xxx, O500-O503, O20000) silently calls the VENDOR's block, not yours: number your subs outside them. *(the 2026-10-30 session on the machine, §4b (SHADOW))*
 - ⛔ M98 P<n> with no O<n> anywhere is silently a no-op: check every called number exists. *(the 2026-10-30 session on the machine, §4b (P_COMBINED))*
+- ⛔ M98 P<n> L0 still runs the subprogram once: to skip a call, jump over it. *(the 2026-10-30 session on the machine, §4b-§4d (FINDINGS b51ec1443))*
+- ⛔ M99 outside a subprogram, and M99 P<n>, are refused: end the main program with M30 and return from a sub with a plain M99. *(the 2026-10-30 session on the machine, §4b-§4d (FINDINGS b51ec1443))*
 - ⛔ Never read a local your M98 call did not pass: it holds garbage, or a value left over from an earlier call. *(the 2026-10-30 session on the machine, §4b (DEC_ARGS, ARG_LETTERS))*
+- Never replace the LOADED program while it runs: the controller reads its file from disk by position, so after a swap it went on reading the NEW file from the same offset, mid-line (syntax error!:L186[= 1058] and the like, 4 of 4, files of 2.6 KB to 573 KB, by a rename-over and by a network send alike). In a cutting job a fragment could be valid and wrong. Replace a program only when the controller is idle. *(the 2026-10-30 session on the machine, §6 (rename A, gateway A / B / X))*
 
 ## Not measured, but a machine-safety rule
 

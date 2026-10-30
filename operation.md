@@ -2,4 +2,9 @@
 
 > Every measured statement names the bench test that measured it (see evidence.md).
 
-Nothing measured yet for this controller.
+## Measured on this controller
+
+- Edits to the system disk's slib-m.nc and key-1.nc SURVIVE a soft reboot (Ctrl+Alt+Delete): both were marked, the controller rebooted, and both still held the mark (then restored from the backup, byte-equal). *(the 2026-10-30 session on the machine, §5 (mark-sysfiles / check-sysfiles))*
+- Never replace the LOADED program while it runs: the controller reads its file from disk by position, so after a swap it went on reading the NEW file from the same offset, mid-line (syntax error!:L186[= 1058] and the like, 4 of 4, files of 2.6 KB to 573 KB, by a rename-over and by a network send alike). In a cutting job a fragment could be valid and wrong. Replace a program only when the controller is idle. *(the 2026-10-30 session on the machine, §6 (rename A, gateway A / B / X))*
+- The homing parameters as the pendant names them: Pr107-Pr111 are the homing (search) speeds of X, Y, Z, the 4th and the 5th axis (2000 / 2000 / 2000 mm/min, 1000 / 800 deg/min here); Pr112 is the X homing DIRECTION, not a speed; Pr118 "Second precision positioning speed" (150 here) is the slow pass the vendor homing (O501) uses to come off the switch, falling back to Pr0 "Motor starting speed" (10 here) when it is 0; Pr100 is the home mode (0 = switch), Pr106 the number of home-switch checks (3), Pr127 home after boot (0). An axis whose switch already reads active when homing starts goes straight to that slow pass. *(the 2026-10-30 session on the machine, §4e (the setting file read) + slib-g.nc O501)*
+- The axis map is Pr488-Pr492, "programming axis of physical axis 1-5": read 0, 1, 2, 1, 4 here, so physical axis 4 drives a second Y (its machine column tracked Y exactly) and physical axis 5 is programming axis 4 (B). The controller has 5 physical axis outputs; with a dual-Y gantry on axis 4, the 5th stays free for a rotary. What each code value means is read from this one machine, not tested by changing it. *(the 2026-10-30 session on the machine, §4e (the setting file read))*
