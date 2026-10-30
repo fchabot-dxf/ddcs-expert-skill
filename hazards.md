@@ -24,6 +24,10 @@
 - ⛔ uservar is not a way into a RUNNING program on the Expert: a PC write into uservar mid-loop (#150 = 88) never reached the macro, which kept the old value. Give a running program nothing through uservar. *(A9-a)*
 - ⛔ ! is not NOT: #v = !0 gave 0 with no error, and the program went on with that value. *(bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
 - ⛔ Decimal equality fails silently: IF [0.3 - 0.2] == 0.1 is false (float32). Compare ROUND[[a] * 1000] == ROUND[[b] * 1000]. *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
+- ⛔ M099, or an O line the program flow reaches, makes the WHOLE file silently do nothing: READY, no error. Write M99, and put every O block after M30. *(the 2026-10-30 session on the machine, §4b (FLOW_M099, O_IN_FLOW))*
+- ⛔ An O number the vendor library also uses (O10000+, O9xxx, O500-O503, O20000) silently calls the VENDOR's block, not yours: number your subs outside them. *(the 2026-10-30 session on the machine, §4b (SHADOW))*
+- ⛔ M98 P<n> with no O<n> anywhere is silently a no-op: check every called number exists. *(the 2026-10-30 session on the machine, §4b (P_COMBINED))*
+- ⛔ Never read a local your M98 call did not pass: it holds garbage, or a value left over from an earlier call. *(the 2026-10-30 session on the machine, §4b (DEC_ARGS, ARG_LETTERS))*
 
 ## Not measured, but a machine-safety rule
 

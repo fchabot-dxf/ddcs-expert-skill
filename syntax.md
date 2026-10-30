@@ -107,7 +107,7 @@ Each form you might reach for, and what this controller does with it: ✅ works,
 | Jumps | GOTO 5 (a space before the label) | ✅ **works** | V11_gotospace.nc |
 | Jumps | GO TO (two words) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Jumps | a leading zero in a label (N010, GOTO010) | ✅ **works** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
-| Jumps | M099 for M99 | ❔ not measured |  |
+| Jumps | M099 for M99 | ⛔ **refused at load** | the 2026-10-30 session on the machine, §4b (FLOW_M099, O_IN_FLOW) |
 | Jumps | IF #a <= b GOTOn (spaces between the parts) | ❔ not measured |  |
 | Jumps | IF … THEN … (inline) | ⛔ **refused at load** | t2070 |
 | Jumps | an indented N label | ⛔ **refused at load** | t2070 (controlled A/B) |
@@ -139,6 +139,11 @@ Each form you might reach for, and what this controller does with it: ✅ works,
 - Comparisons in IF #v <op> 5 GOTOn (1 run each): == and != work, as do the words EQ NE GT LT GE LE (each took the branch it should); <> is refused at load. *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
 - GO TO601 (a space inside the word) is refused at load. A leading zero in a label matches either way: GOTO604 reached N0604 and GOTO0607 reached N607 (1 run each). *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
 - ⚠ Values are float32: IF [0.3 - 0.2] == 0.1 is FALSE, with no error (1/3 reads 0.33333334). Compare rounded values instead: IF ROUND[[0.3 - 0.2] * 1000] == 100 is true (1 run each). *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
+- In-file subprograms work when they sit AFTER M30: M98 P<n> found O<n> and ran it; M98 P<n> L3 ran it 3 times; calls nested 4 deep returned correctly (1 run each, with a control run between). *(the 2026-10-30 session on the machine, §4b (SUB_CONTROL, SUB_AFTER_M30, L_REPEAT, NEST))*
+- A file containing M099, or a bare O line that the main flow reaches, is SILENTLY refused: Start does nothing, the screen stays READY, no error is shown, not one line runs and the run counter does not move (3 of 3 each, alternated with a control file that ran). M099 is not an M99 alias here. Put every O block after M30. *(the 2026-10-30 session on the machine, §4b (FLOW_M099, O_IN_FLOW))*
+- A file's own O10002 is never called: M98 P10002 ran the vendor's O10002 from slib-m.nc instead, with no error (1 run). The vendor's numbers (O500-O503, O9028-O9084, O9199, O10000-O10307, O20000) win over the file's own. *(the 2026-10-30 session on the machine, §4b (SHADOW))*
+- M98 P to an O number defined nowhere runs with no error and calls nothing; M98 P39112 did the same (1 run each). *(the 2026-10-30 session on the machine, §4b (P_COMBINED))*
+- M98 argument letters land in these locals, one letter per call: I #7, J #8, K #9, R #10, H #12, Q #14, D #15, F #16, S #17 (E ran, but its local was not seen). A local the call did not pass holds garbage (#2 read -80.84), and locals HOLD OVER between calls (K's #9 was still there in the next call that passed only Q). An M98 line carrying all ten letters D to S was refused at load, while each letter alone worked; which limit it hits is not measured. *(the 2026-10-30 session on the machine, §4b (DEC_ARGS, ARG_LETTERS))*
 
 ## Writing by hand: forms the controller's own macros use
 
