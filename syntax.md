@@ -68,11 +68,11 @@ Each form an assistant may reach for, and what this controller does with it: ✅
 
 | | form | on this controller | bench test |
 |---|---|---|---|
-| Comparison | == (equal) | ❔ not measured |  |
+| Comparison | == (equal) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Comparison | EQ (equal, the word) | ✅ **works** | V10_operators.nc, Modbus injection test |
-| Comparison | != (not equal) | ❔ not measured |  |
+| Comparison | != (not equal) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Comparison | NE (not equal, the word) | ✅ **works** | V10_operators.nc, Modbus injection test |
-| Comparison | <> (not equal) | ❔ not measured |  |
+| Comparison | <> (not equal) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Comparison | < > <= >= | ❔ not measured |  |
 | Comparison | LT GT LE GE (the words) | ✅ **works** | V10_operators.nc, Modbus injection test |
 | Logic | AND / OR / XOR | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
@@ -105,8 +105,8 @@ Each form an assistant may reach for, and what this controller does with it: ✅
 | Words | H1 for H01 | ⚠️ **silently wrong** | V18 bench session, V18f, V18g |
 | Words | G04 P3.0 (a decimal dwell) | ⚠️ **silently wrong** | DWELL_units.nc |
 | Jumps | GOTO 5 (a space before the label) | ✅ **works** | V11_gotospace.nc |
-| Jumps | GO TO (two words) | ❔ not measured |  |
-| Jumps | a leading zero in a label (N010, GOTO010) | ❔ not measured |  |
+| Jumps | GO TO (two words) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
+| Jumps | a leading zero in a label (N010, GOTO010) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Jumps | M099 for M99 | ❔ not measured |  |
 | Jumps | IF #a <= b GOTOn (spaces between the parts) | ❔ not measured |  |
 | Jumps | IF … THEN … (inline) | ⛔ **refused at load** | t2070 |
@@ -136,6 +136,9 @@ Each form an assistant may reach for, and what this controller does with it: ✅
 - These forms are a syntax error (1 run each, the error photographed): SQR[16], ATAN[1] with one argument, POW[2, 3], 2 ** 3, 7 % 3, NOT[0], 1 && 1, 1 || 0, 1 AND 1, 1 OR 0, 1 XOR 0, a leading + on a number (+5, +.5), an exponent (1e2, 1E3), a decimal comma (0,5) and a / block delete line (syntax error!:L21[/#350 = 1]). With Pr76 (Macro scan switch) open, the default, a syntax error rejects the whole file before line 1; measured with Pr76 closed, where the same forms stop the run mid-way at that line. *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
 - ⚠ !0 is not a logical NOT: #v = !0 ran and gave 0, with no error (1 run). *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
 - These forms work, each read back with the value meant (1 run each): TAN[45] (= 1, degrees); the decimal forms 5, 5., 5.0, 0.5, .5, -.5 and -5; leading zeros (005 = 5); G4 P1 and G04 P1; a space after the # (# 3xx = 5). *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
+- Comparisons in IF #v <op> 5 GOTOn (1 run each): == and != work, as do the words EQ NE GT LT GE LE (each took the branch it should); <> is refused at load. *(a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
+- GO TO601 (a space inside the word) is refused at load. A leading zero in a label matches either way: GOTO604 reached N0604 and GOTO0607 reached N607 (1 run each). *(a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
+- ⚠ Values are float32: IF [0.3 - 0.2] == 0.1 is FALSE, with no error (1/3 reads 0.33333334). Compare rounded values instead: IF ROUND[[0.3 - 0.2] * 1000] == 100 is true (1 run each). *(a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
 
 ## Writing by hand: forms the controller's own macros use
 

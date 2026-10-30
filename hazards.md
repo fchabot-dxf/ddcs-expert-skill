@@ -22,6 +22,7 @@
 - Where a Start lands depends on the page: a Start sent while the screen shows the System Log is ignored, and a Start on the Program page runs the file under the cursor (it started a BMP screenshot file, which went to ERROR). Send Start from the Monitor page, and look at the screen first. *(V30 session (keyboard Starts, the System Log and captures))*
 - ⛔ uservar is not a way into a RUNNING program on the Expert: a PC write into uservar mid-loop (#150 = 88) never reached the macro, which kept the old value. Give a running program nothing through uservar. *(A9-a)*
 - ⛔ ! is not NOT: #v = !0 gave 0 with no error, and the program went on with that value. *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
+- ⛔ Decimal equality fails silently: IF [0.3 - 0.2] == 0.1 is false (float32). Compare ROUND[[a] * 1000] == ROUND[[b] * 1000]. *(a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
 
 ## Not measured, but a machine-safety rule
 
