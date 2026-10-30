@@ -3,7 +3,7 @@ name: ddcs-expert
 description: Rules for writing G-code and macros for the DDCS Expert / M350 CNC controller (not the DDCS V4.1, not Fanuc Macro B): syntax, jumps, #1505 dialogs, the #variables and Pr parameters (look one up before writing it), Modbus and the network share, hazards, the vendor stock macros; from bench-measured findings.
 ---
 
-# DDCS Expert M350 — rules for an AI writing code
+# DDCS Expert M350 — Rulebook
 
 > For the DDCS V4.1, use the `ddcs-v41` skill; for the DDCS V3 / DM500, use the `ddcs-v3-dm500` skill instead: this one is for the DDCS Expert / M350 only.
 

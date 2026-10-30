@@ -2,7 +2,7 @@
 
 > Every measured statement names the bench test that measured it (see evidence.md).
 
-This folder is yours, and git ignores everything in it but this file: this repository never ships the vendor's files (they are the vendor's, referenced here, not re-hosted). Fill it with your own DDCS Expert M350's files and the assistant reads them FIRST; with it empty, the assistant uses the lines quoted below. Either way they are **not bench tests**: they show what the vendor's code does, not that a user program behaves the same, and where they disagree with this pack's measured files, **the measured files win**.
+This folder is yours, and git ignores everything in it but this file: this repository never ships the vendor's files (they are the vendor's, referenced here, not re-hosted). Fill it with your own DDCS Expert M350's files and they are read FIRST; with it empty, the lines quoted below are used. Either way they are **not bench tests**: they show what the vendor's code does, not that a user program behaves the same, and where they disagree with this pack's measured files, **the measured files win**.
 
 This pack's bench ran firmware 2025-06-19-00 (most rows; a few later rows on the controller's then-current firmware); the lines quoted below are from firmware 2026-04-10-00. Yours may be newer: your own copy is what your controller runs.
 
@@ -10,7 +10,7 @@ This pack's bench ran firmware 2025-06-19-00 (most rows; a few later rows on the
 
 1. Copy them off your own controller over the network: its system share (SMB, guest login) is `SYSDISK`, and every file below sits at its root. Your controller may run its own edited copies of some of them: that is what it really runs, so prefer it.
 2. Or take them from the vendor's GitHub release 2026-04-10-00, `V1_M350_20260410.zip` (V1 hardware; a `V2_M350_20260410.zip` sits beside it for V2 hardware, not compared here): https://github.com/foinnc/M350/releases/download/2026-04-10-00/V1_M350_20260410.zip, folder `V1_M350_20260410/install/`; newer releases are listed at https://github.com/foinnc/M350/releases; the vendor's documents are its `Docs/` folder (https://github.com/foinnc/M350/tree/9c4dabd20cb465407a1234fdd82b218765b4ac8f/Docs, the commit of 2026-10-23).
-3. Put each `.nc` file in `vendor/macros/` and each `.rc` file in `vendor/dialogs/`, names unchanged, then write your controller's firmware version on one line in `vendor/VERSION.txt` so the assistant can say which version it read.
+3. Put each `.nc` file in `vendor/macros/` and each `.rc` file in `vendor/dialogs/`, names unchanged, then write your controller's firmware version on one line in `vendor/VERSION.txt`, so whoever reads these files can say which version they came from.
 
 How to read them: a key, a menu entry or an M-code runs a macro file; a macro calls a library subprogram with `M98 P<n>` (the O-number below). M<n> runs O<10000 + n> in `slib-m.nc`; O90nn in `slib-g.nc` is the subprogram behind Gnn. The vendor writes its comments in Chinese (re-encoded from the controller's GBK as UTF-8).
 
