@@ -64,56 +64,56 @@ Community formulas (translated, credited in the note): `community/sources/refere
 
 ## Aliases and alternative forms
 
-Each form an assistant may reach for, and what this controller does with it: works, refused at load (nothing runs), or silently wrong (it runs and computes something else: also in hazards.md). "not measured" means no bench test has tried it here: do not assume it works.
+Each form an assistant may reach for, and what this controller does with it: ✅ works, ⛔ refused at load (nothing runs), or ⚠️ silently wrong (it runs and computes something else: also in hazards.md). ❔ "not measured" means no bench test has tried it here: do not assume it works.
 
 | | form | on this controller | bench test |
 |---|---|---|---|
-| Comparison | == (equal) | not measured |  |
-| Comparison | EQ (equal, the word) | **works** | V10_operators.nc, Modbus injection test |
-| Comparison | != (not equal) | not measured |  |
-| Comparison | NE (not equal, the word) | **works** | V10_operators.nc, Modbus injection test |
-| Comparison | <> (not equal) | not measured |  |
-| Comparison | < > <= >= | not measured |  |
-| Comparison | LT GT LE GE (the words) | **works** | V10_operators.nc, Modbus injection test |
-| Logic | AND / OR / XOR | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Logic | && / \|\| | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Logic | NOT[x] | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Logic | !x (logical not) | **silently wrong** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | MOD[a, b] | **refused at load** | photographed pendant errors |
-| Math | a MOD b (as an operator) | not measured |  |
-| Math | % (remainder) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | ^ (power) | **refused at load** | photographed pendant errors |
-| Math | POW[a, b] | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | ** (power) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | SQRT[x] | **works** | Modbus injection test (#915 readback), a bench script re-run 20/20 |
-| Math | SQR[x] | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | TAN[x] | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | ATAN[x] (one argument) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | ATAN[y, x] | **works** | V13_trig.nc, V13f_atan_comma.nc |
-| Math | ATAN[y]/[x] | **refused at load** | V13_trig.nc, V13f_atan_comma.nc |
-| Words | G00 for G0 | not measured |  |
-| Words | G4 for G04 | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | M03 for M3 | not measured |  |
-| Words | lowercase words (g0 x10) | not measured |  |
-| Words | a space inside a word (G 0, X 10) | not measured |  |
-| Words | a space after # (# 100 = 5) | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | decimal forms (.5, 5., 5.0) | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | leading zeros (X005) | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | a leading + (X+5, +.5) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | an exponent (1e2) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | a decimal comma (0,5) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | H1 for H01 | **silently wrong** | V18 bench session, V18f, V18g |
-| Words | G04 P3.0 (a decimal dwell) | **silently wrong** | DWELL_units.nc |
-| Jumps | GOTO 5 (a space before the label) | **works** | V11_gotospace.nc |
-| Jumps | GO TO (two words) | not measured |  |
-| Jumps | a leading zero in a label (N010, GOTO010) | not measured |  |
-| Jumps | M099 for M99 | not measured |  |
-| Jumps | IF #a <= b GOTOn (spaces between the parts) | not measured |  |
-| Jumps | IF … THEN … (inline) | **refused at load** | t2070 |
-| Jumps | an indented N label | **refused at load** | t2070 (controlled A/B) |
-| Comments | ; comment | not measured |  |
-| Comments | ( a ( b ) c ) (a nested comment) | **refused at load** | MGETDATA_TEST.nc |
-| Comments | / (block delete) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Comparison | == (equal) | ❔ not measured |  |
+| Comparison | EQ (equal, the word) | ✅ **works** | V10_operators.nc, Modbus injection test |
+| Comparison | != (not equal) | ❔ not measured |  |
+| Comparison | NE (not equal, the word) | ✅ **works** | V10_operators.nc, Modbus injection test |
+| Comparison | <> (not equal) | ❔ not measured |  |
+| Comparison | < > <= >= | ❔ not measured |  |
+| Comparison | LT GT LE GE (the words) | ✅ **works** | V10_operators.nc, Modbus injection test |
+| Logic | AND / OR / XOR | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | && / \|\| | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | NOT[x] | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | !x (logical not) | ⚠️ **silently wrong** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | MOD[a, b] | ⛔ **refused at load** | photographed pendant errors |
+| Math | a MOD b (as an operator) | ❔ not measured |  |
+| Math | % (remainder) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | ^ (power) | ⛔ **refused at load** | photographed pendant errors |
+| Math | POW[a, b] | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | ** (power) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | SQRT[x] | ✅ **works** | Modbus injection test (#915 readback), a bench script re-run 20/20 |
+| Math | SQR[x] | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | TAN[x] | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | ATAN[x] (one argument) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | ATAN[y, x] | ✅ **works** | V13_trig.nc, V13f_atan_comma.nc |
+| Math | ATAN[y]/[x] | ⛔ **refused at load** | V13_trig.nc, V13f_atan_comma.nc |
+| Words | G00 for G0 | ❔ not measured |  |
+| Words | G4 for G04 | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | M03 for M3 | ❔ not measured |  |
+| Words | lowercase words (g0 x10) | ❔ not measured |  |
+| Words | a space inside a word (G 0, X 10) | ❔ not measured |  |
+| Words | a space after # (# 100 = 5) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | decimal forms (.5, 5., 5.0) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | leading zeros (X005) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | a leading + (X+5, +.5) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | an exponent (1e2) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | a decimal comma (0,5) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | H1 for H01 | ⚠️ **silently wrong** | V18 bench session, V18f, V18g |
+| Words | G04 P3.0 (a decimal dwell) | ⚠️ **silently wrong** | DWELL_units.nc |
+| Jumps | GOTO 5 (a space before the label) | ✅ **works** | V11_gotospace.nc |
+| Jumps | GO TO (two words) | ❔ not measured |  |
+| Jumps | a leading zero in a label (N010, GOTO010) | ❔ not measured |  |
+| Jumps | M099 for M99 | ❔ not measured |  |
+| Jumps | IF #a <= b GOTOn (spaces between the parts) | ❔ not measured |  |
+| Jumps | IF … THEN … (inline) | ⛔ **refused at load** | t2070 |
+| Jumps | an indented N label | ⛔ **refused at load** | t2070 (controlled A/B) |
+| Comments | ; comment | ❔ not measured |  |
+| Comments | ( a ( b ) c ) (a nested comment) | ⛔ **refused at load** | MGETDATA_TEST.nc |
+| Comments | / (block delete) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 
 ## Measured on this controller
 
