@@ -21,6 +21,8 @@ Measured on: a working DDCS Expert M350 mill, firmware 2025-06-19-00 (most rows;
 - `variables.md`
 - `dialogs.md`
 - `hazards.md`
+- `operation.md`
+- `ui.md`
 - `integration.md`
 - `evidence.md`
 - `examples/`

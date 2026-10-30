@@ -29,6 +29,8 @@ description: Rules for writing G-code and macros for the DDCS Expert / M350 CNC 
 - `variables.md`
 - `dialogs.md`
 - `hazards.md`
+- `operation.md`
+- `ui.md`
 - `integration.md`
 - `evidence.md`
 - `examples/`
