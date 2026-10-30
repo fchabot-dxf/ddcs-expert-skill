@@ -96,6 +96,7 @@ Each form an assistant may reach for, and what this controller does with it: wor
 | Words | M03 for M3 | not measured |  |
 | Words | lowercase words (g0 x10) | not measured |  |
 | Words | a space inside a word (G 0, X 10) | not measured |  |
+| Words | a space after # (# 100 = 5) | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | decimal forms (.5, 5., 5.0) | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | leading zeros (X005) | **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | a leading + (X+5, +.5) | **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
