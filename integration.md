@@ -89,6 +89,6 @@ END1
 
 ## Examples
 
-Programs that ran on a real controller, verbatim: see `examples/README.md`.
+Tested programs, verbatim: see `examples/README.md`.
 
 Hazards that apply to any integration: `hazards.md`.
