@@ -68,52 +68,52 @@ Each form an assistant may reach for, and what this controller does with it: ✅
 
 | | form | on this controller | bench test |
 |---|---|---|---|
-| Comparison | == (equal) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
+| Comparison | == (equal) | ✅ **works** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Comparison | EQ (equal, the word) | ✅ **works** | V10_operators.nc, Modbus injection test |
-| Comparison | != (not equal) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
+| Comparison | != (not equal) | ✅ **works** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Comparison | NE (not equal, the word) | ✅ **works** | V10_operators.nc, Modbus injection test |
-| Comparison | <> (not equal) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
+| Comparison | <> (not equal) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Comparison | < > <= >= | ❔ not measured |  |
 | Comparison | LT GT LE GE (the words) | ✅ **works** | V10_operators.nc, Modbus injection test |
-| Logic | AND / OR / XOR | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Logic | && / \|\| | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Logic | NOT[x] | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Logic | !x (logical not) | ⚠️ **silently wrong** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | AND / OR / XOR | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | && / \|\| | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | NOT[x] | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Logic | !x (logical not) | ⚠️ **silently wrong** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | MOD[a, b] | ⛔ **refused at load** | photographed pendant errors |
 | Math | a MOD b (as an operator) | ❔ not measured |  |
-| Math | % (remainder) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | % (remainder) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | ^ (power) | ⛔ **refused at load** | photographed pendant errors |
-| Math | POW[a, b] | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | ** (power) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | POW[a, b] | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | ** (power) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | SQRT[x] | ✅ **works** | Modbus injection test (#915 readback), a bench script re-run 20/20 |
-| Math | SQR[x] | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | TAN[x] | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Math | ATAN[x] (one argument) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | SQR[x] | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | TAN[x] | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Math | ATAN[x] (one argument) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Math | ATAN[y, x] | ✅ **works** | V13_trig.nc, V13f_atan_comma.nc |
 | Math | ATAN[y]/[x] | ⛔ **refused at load** | V13_trig.nc, V13f_atan_comma.nc |
 | Words | G00 for G0 | ❔ not measured |  |
-| Words | G4 for G04 | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | G4 for G04 | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | M03 for M3 | ❔ not measured |  |
 | Words | lowercase words (g0 x10) | ❔ not measured |  |
 | Words | a space inside a word (G 0, X 10) | ❔ not measured |  |
-| Words | a space after # (# 100 = 5) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | decimal forms (.5, 5., 5.0) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | leading zeros (X005) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | a leading + (X+5, +.5) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | an exponent (1e2) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | a decimal comma (0,5) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | a space after # (# 100 = 5) | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | decimal forms (.5, 5., 5.0) | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | leading zeros (X005) | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | a leading + (X+5, +.5) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | an exponent (1e2) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | a decimal comma (0,5) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | H1 for H01 | ⚠️ **silently wrong** | V18 bench session, V18f, V18g |
 | Words | G04 P3.0 (a decimal dwell) | ⚠️ **silently wrong** | DWELL_units.nc |
 | Jumps | GOTO 5 (a space before the label) | ✅ **works** | V11_gotospace.nc |
-| Jumps | GO TO (two words) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
-| Jumps | a leading zero in a label (N010, GOTO010) | ✅ **works** | a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
+| Jumps | GO TO (two words) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
+| Jumps | a leading zero in a label (N010, GOTO010) | ✅ **works** | bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4 |
 | Jumps | M099 for M99 | ❔ not measured |  |
 | Jumps | IF #a <= b GOTOn (spaces between the parts) | ❔ not measured |  |
 | Jumps | IF … THEN … (inline) | ⛔ **refused at load** | t2070 |
 | Jumps | an indented N label | ⛔ **refused at load** | t2070 (controlled A/B) |
 | Comments | ; comment | ❔ not measured |  |
 | Comments | ( a ( b ) c ) (a nested comment) | ⛔ **refused at load** | MGETDATA_TEST.nc |
-| Comments | / (block delete) | ⛔ **refused at load** | a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Comments | / (block delete) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 
 ## Measured on this controller
 
@@ -133,12 +133,12 @@ Each form an assistant may reach for, and what this controller does with it: ✅
 - On a move that mixes a linear and a rotary axis, F is deg/min on the rotary and the linear axis rides along to arrive with it: G91 G1 X10 B90 F100 took about 54 s, B at 98.6 deg/min and X at 10.9 mm/min. The rotary rapid measured about 1000 deg/min here (G0 B360, a steady 16.6 deg/s), and a combined G0 X B rapid is paced by the rotary rapid too. *(V28_rotary_feed.nc (work X and B polled, 226 samples))*
 - Each of these rejects the whole file at analysis, so nothing runs: a malformed variable (#90 = #91k8: syntax error!), trailing junk after an expression (#90 = [1 + 2 k 8]: syntax error!), an unknown value on a word (G04 Pwidht: Unrecognized characters, then syntax error!). The message names the line (L<n>[text]); a keyboard Reset clears the ERROR. *(V17a_badvar.nc, V17b_trailing.nc, V17c_badword.nc (System Log captured))*
 - An unclosed [ rejects the whole file at analysis (nothing ran), and the error names the NEXT non-blank line, not the one holding the [: #90 = [1 + 2 on line 26, with line 27 blank, was reported as L28, the comment after it. Look one statement back from the reported line. *(V17d_unclosed.nc (captured))*
-- These forms are a syntax error (1 run each, the error photographed): SQR[16], ATAN[1] with one argument, POW[2, 3], 2 ** 3, 7 % 3, NOT[0], 1 && 1, 1 || 0, 1 AND 1, 1 OR 0, 1 XOR 0, a leading + on a number (+5, +.5), an exponent (1e2, 1E3), a decimal comma (0,5) and a / block delete line (syntax error!:L21[/#350 = 1]). With Pr76 (Macro scan switch) open, the default, a syntax error rejects the whole file before line 1; measured with Pr76 closed, where the same forms stop the run mid-way at that line. *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
-- ⚠ !0 is not a logical NOT: #v = !0 ran and gave 0, with no error (1 run). *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
-- These forms work, each read back with the value meant (1 run each): TAN[45] (= 1, degrees); the decimal forms 5, 5., 5.0, 0.5, .5, -.5 and -5; leading zeros (005 = 5); G4 P1 and G04 P1; a space after the # (# 3xx = 5). *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
-- Comparisons in IF #v <op> 5 GOTOn (1 run each): == and != work, as do the words EQ NE GT LT GE LE (each took the branch it should); <> is refused at load. *(a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
-- GO TO601 (a space inside the word) is refused at load. A leading zero in a label matches either way: GOTO604 reached N0604 and GOTO0607 reached N607 (1 run each). *(a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
-- ⚠ Values are float32: IF [0.3 - 0.2] == 0.1 is FALSE, with no error (1/3 reads 0.33333334). Compare rounded values instead: IF ROUND[[0.3 - 0.2] * 1000] == 100 is true (1 run each). *(a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
+- These forms are a syntax error (1 run each, the error photographed): SQR[16], ATAN[1] with one argument, POW[2, 3], 2 ** 3, 7 % 3, NOT[0], 1 && 1, 1 || 0, 1 AND 1, 1 OR 0, 1 XOR 0, a leading + on a number (+5, +.5), an exponent (1e2, 1E3), a decimal comma (0,5) and a / block delete line (syntax error!:L21[/#350 = 1]). With Pr76 (Macro scan switch) open, the default, a syntax error rejects the whole file before line 1; measured with Pr76 closed, where the same forms stop the run mid-way at that line. *(bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
+- ⚠ !0 is not a logical NOT: #v = !0 ran and gave 0, with no error (1 run). *(bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
+- These forms work, each read back with the value meant (1 run each): TAN[45] (= 1, degrees); the decimal forms 5, 5., 5.0, 0.5, .5, -.5 and -5; leading zeros (005 = 5); G4 P1 and G04 P1; a space after the # (# 3xx = 5). *(bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
+- Comparisons in IF #v <op> 5 GOTOn (1 run each): == and != work, as do the words EQ NE GT LT GE LE (each took the branch it should); <> is refused at load. *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
+- GO TO601 (a space inside the word) is refused at load. A leading zero in a label matches either way: GOTO604 reached N0604 and GOTO0607 reached N607 (1 run each). *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
+- ⚠ Values are float32: IF [0.3 - 0.2] == 0.1 is FALSE, with no error (1/3 reads 0.33333334). Compare rounded values instead: IF ROUND[[0.3 - 0.2] * 1000] == 100 is true (1 run each). *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
 
 ## Writing by hand: forms the controller's own macros use
 

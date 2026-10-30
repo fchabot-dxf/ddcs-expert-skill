@@ -7,6 +7,7 @@
 ## Measured on this controller
 
 - One bad line rejects the whole file. *(V13_trig.nc)*
+- The whole-file refusal is Pr76 "Macro scan switch": with it OPEN (the normal setting) a bad line rejects the whole file before line 1; with it CLOSED the same file runs and stops at the bad line (all ten writes before it had landed), and a forward GOTO fails ("[N]was not found"), because the scan is also what builds the label table. Keep Pr76 open for any program with jumps or subprograms. *(the 2026-10-30 session on the machine, Pr76 open and closed (BAD_WORD, STOP_WRITES, CMP_WORDS))*
 - G04 P is always MILLISECONDS: G04 P3000 is about 3 s, and a decimal G04 P3.0 is 3 ms (instant), never 3 seconds. *(DWELL_units.nc)*
 - G10 L20 P6 X25 writes no offset and MOVES the X axis to X25 in the active work system: reproduced four months apart (in the second run work X ran 204.174 -> 25.000 while G59 X stayed 42.650). Never emit G10 L20/L2 with axis words; set a work offset by writing its register. *(V1_G10_WCS.nc, V29_g10_l20_motorless.nc)*
 - The H word needs two digits: G43 H1 is silently ignored, G43 H01 works; G49 cancels; a bare H01 without G43 does not bind. *(V18 bench session, V18f, V18g)*
@@ -21,8 +22,8 @@
 - ⛔ On the Expert the numpad is a jog pad: 8 / 2 / 6 / 4 / 9 / 1 move Y+ / Y- / X+ / X- / Z+ / Z-, and 0 / . move the 5th axis - / +. A stray numpad digit from a keyboard or a script moves an axis. *(USB HID dongle key sweep, jogs read on the DRO (DONGLE-TESTS.md))*
 - Where a Start lands depends on the page: a Start sent while the screen shows the System Log is ignored, and a Start on the Program page runs the file under the cursor (it started a BMP screenshot file, which went to ERROR). Send Start from the Monitor page, and look at the screen first. *(V30 session (keyboard Starts, the System Log and captures))*
 - ⛔ uservar is not a way into a RUNNING program on the Expert: a PC write into uservar mid-loop (#150 = 88) never reached the macro, which kept the old value. Give a running program nothing through uservar. *(A9-a)*
-- ⛔ ! is not NOT: #v = !0 gave 0 with no error, and the program went on with that value. *(a bench script + a bench script (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
-- ⛔ Decimal equality fails silently: IF [0.3 - 0.2] == 0.1 is false (float32). Compare ROUND[[a] * 1000] == ROUND[[b] * 1000]. *(a bench script + a bench script (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
+- ⛔ ! is not NOT: #v = !0 gave 0 with no error, and the program went on with that value. *(bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4)*
+- ⛔ Decimal equality fails silently: IF [0.3 - 0.2] == 0.1 is false (float32). Compare ROUND[[a] * 1000] == ROUND[[b] * 1000]. *(bench scripts (alias matrix, Pr76 open), FINDINGS 2026-10-30 §4)*
 
 ## Not measured, but a machine-safety rule
 
