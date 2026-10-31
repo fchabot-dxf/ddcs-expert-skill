@@ -76,6 +76,7 @@ The vendor's own hook files, each a vendor file, not a bench test (`vendor/READM
 ## Inputs and outputs
 
 - An input's active level 0 = "N" (active-low), 1 = "P" (active-high). *(live differential toggle (#577))*
+- M68 / M69 switch output OUT10 on and off from a program (the IO page shows it red, then dark); a PC polling Modbus during the run did not see the output change (1 run). *(the 2026-10-30 session on the machine, outputs (the IO page photographed))*
 
 Wait for input IN5 to go high (IN5 = #1524 = #[1520+5-1]: the literal and the vendor's computed form are the same variable):
 ```gcode

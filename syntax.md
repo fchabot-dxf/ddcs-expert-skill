@@ -100,7 +100,7 @@ Each form you might reach for, and what this controller does with it: ✅ works,
 | Words | decimal forms (.5, 5., 5.0) | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | leading zeros (X005) | ✅ **works** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | a leading + (X+5, +.5) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
-| Words | an exponent (1e2) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
+| Words | an exponent (1e2) | ⛔ **refused at load** / ⚠️ **silently wrong** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4; the 2026-10-30 session on the machine, motion (a Modbus position trace) |
 | Words | a decimal comma (0,5) | ⛔ **refused at load** | bench scripts (alias matrix, Pr76 closed), FINDINGS 2026-10-30 §4 |
 | Words | H1 for H01 | ⚠️ **silently wrong** | V18 bench session, V18f, V18g |
 | Words | G04 P3.0 (a decimal dwell) | ⚠️ **silently wrong** | DWELL_units.nc |
@@ -147,6 +147,9 @@ Each form you might reach for, and what this controller does with it: ✅ works,
 - A bare M99 in the main flow, with no call active, is refused: the pendant shows "The subroutine caller block was not found" (red). M99 P<n> (return to a line) is refused at load too (1 run each). *(the 2026-10-30 session on the machine, §4b-§4d (FINDINGS b51ec1443))*
 - M98 argument letters land in these locals, one letter per call: I #7, J #8, K #9, R #10, H #12, Q #14, D #15, F #16, S #17 (E is accepted and dropped: it lands in no local). A local the call did not pass holds garbage (#2 read -80.84), and locals HOLD OVER between calls (K's #9 was still there in the next call that passed only Q). An M98 line carrying D E F H I together was refused at load, while J K Q R S together ran, and each letter alone ran; which combination rule it hits is not measured. *(the 2026-10-30 session on the machine, §4b (DEC_ARGS, ARG_LETTERS))*
 - These forms work (1 run each): the comparison symbols < > <= >= in IF #v <op> 5 GOTOn; a modal line G00, lowercase g0, or G 0 (a space inside the word), each with no axis word and followed by a #-write that landed; the spaced form IF #a <= b GOTOn (IF #343 <= 5 GOTO6) and the packed IF#343<=5GOTO625; a ; comment line. 7 MOD 3 is refused at load: there is no MOD in any form. *(the 2026-10-30 session on the machine, §4c (ALIAS_MORE))*
+- As a COORDINATE, X0.5, X.5, X0.50, x.5, X .5 and X.5000001 each moved X to exactly 0.5000 (a live position trace); X+.5 was refused. G0 X5E-1 was NOT refused: it silently moved X by +4.000 mm, while an exponent as a value (#v = 1e2) is refused at load. A coordinate finer than one motor step is dropped, not rounded up: at 500 pulses per mm, 0.001 moved nothing and 0.003 moved 0.002 (1 run each). *(the 2026-10-30 session on the machine, motion (a Modbus position trace))*
+- An axis word on an M98 line is an argument, not a move: M98 P9800 X3 gave the sub #1 = 3, and X did not move (Fanuc would give #24). A G91 set inside a sub is undone at its M99 (the caller is back in G90), and M30 resets to G90 (the modal line, against a G91-in-main control; 1 run each). *(the 2026-10-30 session on the machine, motion (the modal line photographed))*
+- With Pr76 (Macro scan switch) closed, the ten variable writes before a bad line landed, but the ten G1 X0.1 moves between them never ran: the position trace stayed flat (1 run). *(the 2026-10-30 session on the machine, motion (a Modbus position trace))*
 
 ## Writing by hand: forms the controller's own macros use
 

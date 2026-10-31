@@ -31,6 +31,7 @@
 - ⛔ M99 outside a subprogram, and M99 P<n>, are refused: end the main program with M30 and return from a sub with a plain M99. *(the 2026-10-30 session on the machine, §4b-§4d (FINDINGS b51ec1443))*
 - ⛔ Never read a local your M98 call did not pass: it holds garbage, or a value left over from an earlier call. *(the 2026-10-30 session on the machine, §4b (DEC_ARGS, ARG_LETTERS))*
 - Never replace the LOADED program while it runs: the controller reads its file from disk by position, so after a swap it went on reading the NEW file from the same offset, mid-line (syntax error!:L186[= 1058] and the like, 4 of 4, files of 2.6 KB to 573 KB, by a rename-over and by a network send alike). In a cutting job a fragment could be valid and wrong. Replace a program only when the controller is idle. *(the 2026-10-30 session on the machine, §6 (rename A, gateway A / B / X))*
+- ⛔ An exponent in a coordinate (G0 X5E-1) is silently wrong: it moved X by 4 mm, not 0.5. Never write exponents. *(the 2026-10-30 session on the machine, motion (a Modbus position trace))*
 
 ## Not measured, but a machine-safety rule
 
