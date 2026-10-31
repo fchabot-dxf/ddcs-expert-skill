@@ -2,6 +2,21 @@
 
 > Every measured statement names the bench test that measured it (see evidence.md).
 
+## Access: who reads and writes, and when
+
+Where a read or a write comes from, and when it works. Each mark points to the fact that says so: its page, and its bench test there. ✅ works, ⛔ does not, ⚠️ with a catch, ❔ no fact says yet, — does not apply.
+
+| from | read at idle | read during a run | write at idle | write during a run | survives a reboot |
+|---|---|---|---|---|---|
+| the running program | — | ✅ integration.md (V14_wcs_pos.nc) | — | ✅ integration.md (V6_set.nc) · ⚠️ integration.md (Modbus reads of the whole parameter table against the setting file) | ✅ integration.md (Pr132 written by FC16) |
+| a hook macro (an M-code body, a K-key or key-N macro, a start or error hook) | ❔ | ❔ | ❔ | ❔ | ⚠️ integration.md (power-cycle test) · ✅ operation.md (the 2026-10-30 session on the machine) |
+| MDI (a line typed on the pendant) | ❔ | ❔ | ❔ | ❔ | ❔ |
+| injected G-code (Modbus register 3000) | ✅ integration.md (register scan for #100 = 12345) · ✅ integration.md (six-variable test) | ❔ | ✅ integration.md (#1505 message shown on the pendant) · ⚠️ hazards.md (photographed pendant error) · ✅ integration.md (K-key assignment by Modbus injection) · ⚠️ integration.md (direct FC16 writes to 7024 and 7026 with read-backs) | ❔ | ❔ |
+| the uservar file (a PC, over the share) | ✅ integration.md (operator test writes decoded over SMB) · ⚠️ integration.md (A9-a) | ⛔ integration.md (A9-a) | ❔ | ⛔ integration.md (A9-a) | ❔ |
+| Modbus registers (a PC) | ⚠️ integration.md (register scan for #100 = 12345) · ✅ integration.md (21-parameter read) · ✅ integration.md (read-only FC03 against the pendant photo and the WCS table) | ⚠️ hazards.md (CALIBRATE.nc) · ✅ integration.md (V23_lineadvance.nc) · ✅ integration.md (read-only FC03 against the pendant photo and the WCS table) | ✅ integration.md (direct FC16 writes to 7024 and 7026 with read-backs) · ✅ integration.md (Pr132 written by FC16) | ❔ | ⛔ integration.md (Pr132 written by FC16) |
+| the setting file / Param page | ✅ integration.md (Modbus reads of the whole parameter table against the setting file) | ❔ | ❔ | ❔ | ✅ integration.md (Pr132 written by FC16) |
+| the pendant | ❔ | ❔ | ✅ integration.md (Pr132 written by FC16) | ❔ | ❔ |
+
 Source: **Variables-ENG 01-04-2025.csv**, a variable table for the DDCS Expert M350. The descriptions are the table's own words.
 
 ⛔ Never write a variable you have not looked up here. A value of 0 does not mean unused.
