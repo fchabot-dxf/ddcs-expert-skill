@@ -56,7 +56,7 @@ What is declared or measured about these variables beyond the table, each with i
 | #2037 | measured | #2037 = 65536 + [KeyValue - 1000] presses a panel key; it must run as code. | A7b_BUTTON_ONEWAY.nc, photographed pendant |
 | #2070 | measured | #2070 = <var>(prompt) pauses for the operator to type a number into that variable. | operator macros |
 
-## System [S, N]
+## Lost at a reboot [S]
 
 | variables | description | note |
 |---|---|---|
@@ -273,7 +273,6 @@ What is declared or measured about these variables beyond the table, each with i
 | #1988 | **lost at a reboot** (the vendor's mark) — One Key Probe Tool No. 19 — Used in mulprobe.nc file |  |
 | #1989 | **lost at a reboot** (the vendor's mark) — One Key Probe Tool No. 20 — Used in mulprobe.nc file |  |
 | #1990 | **lost at a reboot** (the vendor's mark) — *(no description in the table)* |  |
-| #1991 | system mode |  |
 | #1992 | **lost at a reboot** (the vendor's mark) — Home function enabled (does not work anymore) — Used to enable homing after downloading. Now doesn't work. |  |
 | #1993 | **lost at a reboot** (the vendor's mark) — Probe enabled after tool change |  |
 | #1994 | **lost at a reboot** (the vendor's mark) — RTCP Enable/Disable — Turning this setting on doesn't make sense. Because RTCP doesn't work. If enabled, the controller will fail. |  |
@@ -437,7 +436,7 @@ What is declared or measured about these variables beyond the table, each with i
 | #1717 | **read only** (the vendor's mark) — Extended Key 7 Status |  |
 | #1718 | **read only** (the vendor's mark) — Extended Key 8 Status |  |
 
-## Parameter
+## Kept after a reboot [B]
 
 | variables | description | note |
 |---|---|---|
@@ -1205,9 +1204,10 @@ What is declared or measured about these variables beyond the table, each with i
 | #2500-#2599 | **kept after a reboot** (the vendor's mark) — *(no description in the table)* |  |
 | #2600-#2999 | **kept after a reboot** (the vendor's mark) — These variables are passed the values of the parameters of the CAM function (1100-1499) — Read more about this in the instructions for the CAM function. Also, the values of these variables cannot be changed "manually". Only through the parameters of the CAM function. |  |
 
-## Not marked in the table
+## Other [N, no mark]
 
 | variables | description | note |
 |---|---|---|
+| #1991 | system mode |  |
 | #2039-#2041 | *(no description in the table)* | ❔ not measured |
 | #2043-#2071 | *(no description in the table)* | ❔ not measured, measured |
