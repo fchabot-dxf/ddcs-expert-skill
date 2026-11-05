@@ -17,6 +17,22 @@ Where a read or a write comes from, and when it works. Each mark points to the f
 | the setting file / Param page | ✅ integration.md (Modbus reads of the whole parameter table against the setting file) | ❔ | ❔ | ❔ | ✅ integration.md (Pr132 written by FC16) |
 | the pendant | ❔ | ❔ | ✅ integration.md (Pr132 written by FC16) | ❔ | ❔ |
 
+## Most used
+
+The variables a macro reaches for first, in the variable table's own words (the full table is below).
+
+| variable | what the table calls it |
+|---|---|
+| #790 | axis realtime workpiece coordinate position |
+| #880 | MACH Coordinates X Absolute position |
+| #1505 | Dialog prompt message |
+| #1503 | prompt information |
+| #2070 | the table gives no description |
+| #1520 | Common Input port 01 Status |
+| #1552 | Common Output port 01 Status |
+| #578 | Displays the number of the current working SC. 1-G54; 6-G59; 0-G92. Toggles them if the controller is restarted after the change. |
+| #1430 | offset of No.1 Tool |
+
 Source: **Variables-ENG 01-04-2025.csv**, a variable table for the DDCS Expert M350. The descriptions are the table's own words.
 
 The bold words on a row are the vendor's own mark for it, in the words of the vendor's legend for this column (DDCS_Variables_mapping_2025-01-04.xlsx, cell B2): R/O "read only", B "kept after a reboot", S "lost at a reboot". A mark the legend does not name says nothing. "Kept after a reboot" and "lost at a reboot" are about a reboot: none of these marks says whether a write is accepted.
